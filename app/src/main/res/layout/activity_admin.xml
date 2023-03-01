@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TableLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".Admin"
+android:stretchColumns="1,2,3,4,5,6,7,8"
+android:weightSum="8">
+
+<TableRow
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="8">
+    <TextView
+        android:text="Name"
+        android:gravity="center"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_width="0dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:text="Address"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:layout_width="0dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:text="Skill"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:layout_width="0dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:text="Exp"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:layout_width="0dp"
+        android:layout_weight="1"/>
+
+
+
+    <TextView
+        android:text="Contact"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:layout_width="0dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:text="Email"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:layout_width="0dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:text="Location"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:layout_width="0dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:text="Weather"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:layout_width="0dp"
+        android:layout_weight="1"/>
+
+
+</TableRow>
+
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/recyclerview"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    />
+</TableLayout>
