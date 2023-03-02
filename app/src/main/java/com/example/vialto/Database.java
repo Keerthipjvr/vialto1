@@ -49,6 +49,5 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase DB = this.getWritableDatabase();
         Cursor cursor = DB.rawQuery("Select * from EmployeeDetails", null);
         return cursor;
-
     }
 }
