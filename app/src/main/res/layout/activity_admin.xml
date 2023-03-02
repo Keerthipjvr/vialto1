@@ -80,6 +80,7 @@ android:weightSum="8">
         android:layout_weight="1"/>
 
     <TextView
+        android:id="@+id/Weather"
         android:text="Weather"
         android:gravity="center"
         android:textColor="@color/black"
@@ -89,6 +90,7 @@ android:weightSum="8">
         android:layout_weight="1"/>
 
 
+
 </TableRow>
 
 <androidx.recyclerview.widget.RecyclerView
@@ -96,4 +98,11 @@ android:weightSum="8">
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     />
+
+    <Button
+        android:id="@+id/btn_Home"
+        android:text="Go To HomePage"
+        android:textSize="10sp"
+        />
+
 </TableLayout>

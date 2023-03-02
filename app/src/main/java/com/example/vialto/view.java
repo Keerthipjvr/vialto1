@@ -16,6 +16,9 @@ public class view extends AppCompatActivity {
         Dashboard = findViewById(R.id.btndashboard);
         Employees = findViewById(R.id.btnEmployees);
 
+        //getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+
+
         Dashboard.setOnClickListener(v-> startActivity(new Intent(getApplicationContext(), dashboard.class)));
         Employees.setOnClickListener(v-> startActivity(new Intent(getApplicationContext(), Admin.class)));
     }

@@ -9,26 +9,32 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.text.BreakIterator;
 import java.util.ArrayList;
 
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
     private Context context;
-    private ArrayList name, address, skill, experience, contact, email, location;
+   // private ArrayList name, address, skill, experience, contact, email, location;
+    private  ArrayList<User> userArrayList;
 
-    public MyAdapter(Context context, ArrayList name, ArrayList address, ArrayList skill, ArrayList experience, ArrayList
-            contact, ArrayList email, ArrayList location){
+//    public MyAdapter(Context context, ArrayList name, ArrayList address, ArrayList skill, ArrayList experience, ArrayList
+//            contact, ArrayList email, ArrayList location, ArrayList weather){
+//        this.context = context;
+//        this.name = name;
+//        this.address = address;
+//        this.skill = skill;
+//        this.experience = experience;
+//        this.contact = contact;
+//        this.email = email;
+//        this.location = location;
+//        this.weatherModelArrayList = weather;
+//    }
+
+    public MyAdapter(Context context, ArrayList<User> weatherModelArrayList){
         this.context = context;
-        this.name = name;
-        this.address = address;
-        this.skill = skill;
-        this.experience = experience;
-        this.contact = contact;
-        this.email = email;
-        this.location = location;
-    }
+        this.userArrayList = weatherModelArrayList;
 
+    }
 
     @NonNull
     @Override
@@ -39,22 +45,25 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.name.setText(String.valueOf(name.get(position)));
-        holder.address.setText(String.valueOf(address.get(position)));
-        holder.skill.setText(String.valueOf(skill.get(position)));
-        holder.experience.setText(String.valueOf(experience.get(position)));
-        holder.contact.setText(String.valueOf(contact.get(position)));
-        holder.email.setText(String.valueOf(email.get(position)));
-        holder.location.setText(String.valueOf(location.get(position)));
+        User user = userArrayList.get(position);
+        holder.name.setText(String.valueOf(user.getName()));
+        holder.address.setText(String.valueOf(user.getAddress()));
+        holder.skill.setText(String.valueOf(user.getSkill()));
+        holder.experience.setText(String.valueOf(user.getExperience()));
+        holder.contact.setText(String.valueOf(user.getContact()));
+        holder.email.setText(String.valueOf(user.getEmail()));
+        holder.location.setText(String.valueOf(user.getLocation()));
+        holder.weather.setText(String.valueOf(user.getWeather()));
+
     }
 
     @Override
     public int getItemCount() {
-        return name.size();
+        return userArrayList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView name, address, skill, experience, contact, email, location;
+        TextView name, address, skill, experience, contact, email, location, weather;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.tvName);
@@ -64,6 +73,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
             contact = itemView.findViewById(R.id.tvContact);
             email = itemView.findViewById(R.id.tvEmail);
             location = itemView.findViewById(R.id.tvLocation);
+            weather = itemView.findViewById(R.id.tvWeather);
 
         }
     }

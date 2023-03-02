@@ -2,6 +2,7 @@ package com.example.vialto;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,23 +12,31 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Register extends AppCompatActivity {
 
     EditText name, address, contact, email, location;
     AutoCompleteTextView skill,experience;
     Button save, cancel;
-    String Name;
-    String Address;
-    String Skill;
-    String Experience;
-    String Contact;
-    String Email;
-    String Location;
-
+    String Name, Address, Skill, Experience, Contact, Email, Location;
+    Database DB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+      //getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
 
         name = findViewById(R.id.etName);
         address = findViewById(R.id.etAddress);
@@ -40,7 +49,7 @@ public class Register extends AppCompatActivity {
 
         skill = findViewById(R.id.auto_com_text1);
         experience = findViewById(R.id.auto_com_text2);
-        Database DB;
+
         String[] skills={"Android",".Net","Testing","PowerApps","Java","Python","Finance","BA","Recruiting" };
         String[] exp={"6months","1 yrs","2 yrs","3 yrs","4 yrs","5 yrs","6 yrs","7 yrs", "8 yrs","9 yrs","10 yrs", "10+yrs" };
 
@@ -66,13 +75,7 @@ public class Register extends AppCompatActivity {
                 Toast.makeText(Register.this, "experience" + experience, Toast.LENGTH_SHORT).show();
             }});
 
-
-
         cancel.setOnClickListener(v-> startActivity(new Intent(getApplicationContext(), MainActivity.class)));
-
-
-        DB = new Database(this);
-
 
         save.setOnClickListener(v-> {
 
@@ -86,14 +89,8 @@ public class Register extends AppCompatActivity {
 
             validate();
 
-            Boolean checkInsertEmp = DB.insertEmp(Name, Address, Skill, Experience, Contact, Email, Location);
-            if(checkInsertEmp)
-            {
-                Toast.makeText(Register.this,"Data Saved Successfully", Toast.LENGTH_SHORT).show();                }
-            else
-            {
-                Toast.makeText(Register.this, "Data not saved. Try again!!", Toast.LENGTH_SHORT).show();
-            }
+            getWeatherInfo(Location);
+
         });
 
     }
@@ -118,6 +115,39 @@ public class Register extends AppCompatActivity {
             location.setError("You forget to type Location");
         } else
             startActivity(new Intent(getApplicationContext(),MainActivity.class));
+
+    }
+
+    private void getWeatherInfo(String location){
+        String url = "http://api.weatherapi.com/v1/current.json?key=76b04327a5904d42aa292816230203&q=Delhi&aqi=no";
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONObject currentJson = response.getJSONObject("current");
+                            String weather = currentJson.getString("temp_f");
+                            DB = new Database(Register.this);
+                Boolean checkInsertEmp = DB.insertEmp(Name, Address, Skill, Experience, Contact, Email, Location,weather);
+                if(checkInsertEmp)
+                {
+                    Toast.makeText(Register.this,"Data Saved Successfully", Toast.LENGTH_SHORT).show();                }
+                else
+                {
+                    Toast.makeText(Register.this, "Data not saved. Try again!!", Toast.LENGTH_SHORT).show();
+                }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },new Response.ErrorListener() {
+             @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        requestQueue.add(request);
 
     }
 }

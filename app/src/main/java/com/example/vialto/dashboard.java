@@ -1,51 +1,44 @@
 package com.example.vialto;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
+
 import java.util.ArrayList;
 
 public class dashboard extends AppCompatActivity {
-
     BarChart barChart;
-
-
+    int[] colorClassArray = new int[]{Color.GREEN,  Color.YELLOW , Color.BLUE};
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
+
+       // getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-
         barChart = findViewById(R.id.barChart);
 
-        ArrayList<BarEntry> barEntries = new ArrayList<>();
-
-        for(int i=1; i<10; i++){
-            float value = (float)(i*10.0);
-
-            BarEntry barEntry = new BarEntry(i, value);
-
-            barEntries.add(barEntry);
-        }
-        BarDataSet barDataSet = new BarDataSet(barEntries, "EmployeeDetails");
-
-        barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-
-        barDataSet.setDrawValues(false);
-
-        barChart.setData(new BarData(barDataSet));
-
-        barChart.animateY(5000);
+        BarDataSet barDataSet = new BarDataSet(dataValue1(), "Bar Set");
+        barDataSet.setColors(colorClassArray);
 
         BarData barData = new BarData(barDataSet);
+        barChart.setData(barData);
+    }
 
-        barChart.getDescription().setText("Employee Chart");
-        barChart.getDescription().setTextColor(Color.BLUE);
+    private ArrayList<BarEntry> dataValue1(){
+        ArrayList<BarEntry> dataVals = new ArrayList<>();
+        dataVals.add(new BarEntry(0, new float[]{2,4,6}));
+        dataVals.add(new BarEntry(1, new float[]{1,4,3} ));
+        dataVals.add(new BarEntry(2, new float[]{5,3,1}));
 
+        return dataVals;
     }
 }
+
